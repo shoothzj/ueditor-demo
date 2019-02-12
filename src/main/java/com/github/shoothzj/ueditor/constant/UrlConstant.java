@@ -7,6 +7,6 @@ public class UrlConstant {
 
     private static final Logger log = LoggerFactory.getLogger(UrlConstant.class);
 
-    public static final String pic = "";
+    public static final String pic = "/singleFile";
 
 }
