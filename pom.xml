@@ -50,7 +50,7 @@
             <dependency>
                 <groupId>com.github.shoothzj</groupId>
                 <artifactId>java-dependency</artifactId>
-                <version>1.0</version>
+                <version>1.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
