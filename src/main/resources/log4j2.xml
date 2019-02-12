@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Configuration status="warn" monitorInterval="10" xmlns="http://logging.apache.org/log4j/2.0/config">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd,HH:mm:ss,SSSXXX}(%r):%4p%X[%t#%T]%logger{36}-->%m%n"/>
+        </Console>
+        <RollingFile name="MainRollingFile" fileName="shoothzj-running.log" filePattern="shoothzj-running_%d_%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd,HH:mm:ss,SSSXXX}(%r):%4p%X[%t#%T]%l-->%m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="199 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1000"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="MainRollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
