@@ -20,11 +20,13 @@ html,body {
 #toolbar {
     width: 10%;
     height: 100%;
+    padding: 1% 0;
     vertical-align: top;
 }
 
 #toolbar button {
     width: 100%;
+    display: block;
     border-style: dashed;
 }
 

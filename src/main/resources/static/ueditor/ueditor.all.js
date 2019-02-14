@@ -7828,7 +7828,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, "g");
       var height = this.iframe.parentNode.parentNode.parentElement.offsetHeight -
           this.iframe.parentNode.parentElement.getElementsByClassName("edui-editor-toolbarboxouter")[0].offsetHeight -
           this.iframe.parentNode.parentElement.getElementsByClassName("edui-editor-bottomContainer")[0].offsetHeight -
-          (this.options.topOffset || 0)-4;
+          (this.options.topOffset || 0);
       this.setHeight(height);
     },
 
