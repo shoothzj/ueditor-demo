@@ -7796,23 +7796,40 @@ var fillCharReg = new RegExp(domUtils.fillChar, "g");
     },
 
     /**
-         * 设置编辑器高度
-         * @method setHeight
-         * @remind 当配置项autoHeightEnabled为真时,该方法无效
-         * @param { Number } number 设置的高度值，纯数值，不带单位
-         * @example
-         * ```javascript
-         * editor.setHeight(number);
-         * ```
-         */
+     * 设置编辑器高度
+     * @method setHeight
+     * @remind 当配置项autoHeightEnabled为真时,该方法无效
+     * @param { Number } number 设置的高度值，纯数值，不带单位
+     * @example
+     * ```javascript
+     * editor.setHeight(number);
+     * ```
+     */
     setHeight: function(height, notSetHeight) {
       if (height !== parseInt(this.iframe.parentNode.style.height)) {
         this.iframe.parentNode.style.height = height + "px";
       }
       !notSetHeight &&
-        (this.options.minFrameHeight = this.options.initialFrameHeight = height);
+      (this.options.minFrameHeight = this.options.initialFrameHeight = height);
       this.body.style.height = height + "px";
       !notSetHeight && this.trigger("setHeight");
+    },
+
+    /**
+     * 编辑器高度自适应
+     * @method adaptiveHeight
+     * @remind 当配置项autoHeightEnabled为真时,该方法无效
+     * @example
+     * ```javascript
+     * editor.adaptiveHeight();
+     * ```
+     */
+    adaptiveHeight: function() {
+      var height = this.iframe.parentNode.parentNode.parentElement.offsetHeight -
+          this.iframe.parentNode.parentElement.getElementsByClassName("edui-editor-toolbarboxouter")[0].offsetHeight -
+          this.iframe.parentNode.parentElement.getElementsByClassName("edui-editor-bottomContainer")[0].offsetHeight -
+          (this.options.topOffset || 0)-4;
+      this.setHeight(height);
     },
 
     /**

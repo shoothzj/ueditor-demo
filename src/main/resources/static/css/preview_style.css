@@ -1,6 +1,11 @@
-#container {
+html,body {
+    margin: 0;
     height: 100%;
-    width: 100%
+}
+
+#container {
+    width: 100%;
+    height: 99%;
 }
 
 #editor,#toolbar,#preview_area {
@@ -8,21 +13,26 @@
 }
 
 #editor {
-    margin-left: 0;
     width: 50%;
-    height: 80%
+    height: 100%
 }
 
 #toolbar {
-    margin-left: 55%;
     width: 10%;
-    height: 80%;
+    height: 100%;
+    vertical-align: top;
+}
+
+#toolbar button {
+    width: 100%;
     border-style: dashed;
 }
 
 #preview_area {
-    margin-right: 0;
-    width: 30%;
+    width: 35%;
     height: 100%;
+    box-sizing: border-box;
     border-style: dashed;
+    vertical-align: top;
+    overflow: auto;
 }
