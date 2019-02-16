@@ -8,7 +8,7 @@ html,body {
     height: 99%;
 }
 
-#editor,#toolbar,#preview_area {
+#editor,#toolbar_area,#preview_area {
     display: inline-block;
 }
 
@@ -17,17 +17,27 @@ html,body {
     height: 100%
 }
 
-#toolbar {
-    width: 10%;
+#toolbar_area {
+    width: 132px;
     height: 100%;
     padding: 1% 0;
     vertical-align: top;
 }
 
-#toolbar button {
-    width: 100%;
+#toolbar {
+    position: absolute;
+    width: 110px;
+    top: 50%;
+    margin-left: 0;
+    margin-right: 0;
+    -webkit-transform: translate(11px, -50%);
+    transform: translate(11px, -50%);
+}
+
+.editor_button {
     display: block;
-    border-style: dashed;
+    width: 100%;
+    /*padding: 6px 18px 6px 12px;*/
 }
 
 #preview_area {
