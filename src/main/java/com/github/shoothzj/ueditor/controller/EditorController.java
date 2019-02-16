@@ -1,12 +1,11 @@
 package com.github.shoothzj.ueditor.controller;
 
-import com.github.shoothzj.javatool.service.JacksonService;
 import com.github.shoothzj.javatool.tool.IOTool;
+import com.github.shoothzj.ueditor.FileUploadUtil;
 import com.github.shoothzj.ueditor.WebTool;
 import com.github.shoothzj.ueditor.constant.UrlConstant;
 import com.github.shoothzj.ueditor.module.BaseState;
 import com.github.shoothzj.ueditor.service.FileMemoryService;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -36,6 +29,8 @@ public class EditorController {
     private static final Logger log = LoggerFactory.getLogger(EditorController.class);
 
     private final FileMemoryService fileMemoryService;
+
+    private BaseState baseState;
 
     @Autowired
     public EditorController(FileMemoryService fileMemoryService) {
@@ -79,28 +74,34 @@ public class EditorController {
     }
 
     public ResponseEntity<String> uploadImage(String name, byte[] bytes) {
-        fileMemoryService.saveUploadPic(name, bytes);
-        BaseState baseState = new BaseState();
+        String imageName = FileUploadUtil.generateFileName();
+
+        fileMemoryService.saveUploadPic(imageName, bytes);
+        baseState = new BaseState();
+
         Map<String, String> map = new HashMap<>();
-        baseState.putInfo("url", UrlConstant.pic + "/" + name);
+        baseState.putInfo("url", UrlConstant.pic + "/" + imageName);
         baseState.putInfo("type", "png");
         baseState.putInfo("size", String.valueOf(bytes.length));
-        baseState.putInfo("title", name);
-        baseState.putInfo("original", name);
+        baseState.putInfo("title", imageName);
+        baseState.putInfo("original", imageName);
+
         return new ResponseEntity<>(baseState.toString(), WebTool.aa(), HttpStatus.OK);
     }
 
     public ResponseEntity<String> uploadVideo(String name, byte[] bytes) {
-        fileMemoryService.saveUploadPic(name, bytes);
+        String videoName = FileUploadUtil.generateFileName();
 
-        BaseState baseState = new BaseState();
+        fileMemoryService.saveUploadPic(videoName, bytes);
+        baseState = new BaseState();
 
         Map<String, String> map = new HashMap<>();
-        baseState.putInfo("url", UrlConstant.pic + "/" + name);
+        baseState.putInfo("url", UrlConstant.pic + "/" + videoName);
         baseState.putInfo("type", "mp4");
         baseState.putInfo("size", String.valueOf(bytes.length));
-        baseState.putInfo("title", name);
-        baseState.putInfo("original", name);
+        baseState.putInfo("title", videoName);
+        baseState.putInfo("original", videoName);
+
         return new ResponseEntity<>(baseState.toString(), WebTool.aa(), HttpStatus.OK);
     }
 
