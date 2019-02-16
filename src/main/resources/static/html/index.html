@@ -10,9 +10,16 @@
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
     <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/cookieUtil.js"></script>
     <script type="text/javascript">
         function preview() {
             $("#preview_area").html(UE.getEditor('editor').getContent());
+        }
+        function collect() {
+        }
+        function copy() {
+        }
+        function release() {
         }
     </script>
 </head>
@@ -23,7 +30,10 @@
     <textarea id="editor"></textarea>
 
     <div id="toolbar">
-        <button id = "preview" onclick="preview()">预览</button>
+        <button id = "preview_button" onclick="preview()">预览</button>
+        <button id = "collection_button" onclick="collect()">采集</button>
+        <button id = "copy_button" onclick="copy()">复制</button>
+        <button id = "release_button" onclick="release()">发布</button>
     </div>
 
     <div id="preview_area"></div>
@@ -35,7 +45,14 @@
     });
     window.onresize = function() {
         ue.adaptiveHeight();
-    }
+    };
+    UE.getEditor('editor').addListener( 'ready', function( editor ) {
+        if (getCookie("editor") !== undefined) {
+            UE.getEditor('editor').setContent(getCookie("editor"))
+        }
+        //开启定时任务,每3秒保存客户正在编辑的数据
+        var aux = setInterval(saveEditorContentToCookie, 3000)
+    } );
 </script>
 </body>
 </html>

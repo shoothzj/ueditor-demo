@@ -36,5 +36,6 @@ html,body {
     box-sizing: border-box;
     border-style: dashed;
     vertical-align: top;
-    overflow: auto;
+    overflow: scroll;
+    word-wrap: break-word;
 }
