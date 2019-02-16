@@ -32,7 +32,7 @@
     "videoActionName": "uploadvideo",
     "videoFieldName": "upfile",
     "videoPathFormat": "/ueditor/jsp/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}",
-    "videoUrlPrefix": "",
+    "videoUrlPrefix": "http://127.0.0.1:9596",
     "videoMaxSize": 102400000,
     "videoAllowFiles": [
         ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".mpeg", ".mpg",

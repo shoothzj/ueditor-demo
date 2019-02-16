@@ -28,14 +28,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class EditorController {
 
     private static final Logger log = LoggerFactory.getLogger(EditorController.class);
 
+    private final FileMemoryService fileMemoryService;
+
     @Autowired
-    private FileMemoryService fileMemoryService;
+    public EditorController(FileMemoryService fileMemoryService) {
+        this.fileMemoryService = fileMemoryService;
+    }
 
     @RequestMapping(value = "/editor")
     public ResponseEntity<String> editor(@RequestParam(required = false) String action, @RequestParam(required = false) String callback, @RequestParam(value = "upfile", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,24 +49,32 @@ public class EditorController {
         if (action == null) {
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
-            return new ResponseEntity<>(IOTool.readFile2String(EditorController.class.getClassLoader().getResource("config.json").getFile()), HttpStatus.OK);
+            return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
         }
+
         request.setCharacterEncoding("utf-8");
         switch (action) {
             case "config":
                 response.setHeader("Content-Type", "text/html");
-                return new ResponseEntity<>(IOTool.readFile2String(EditorController.class.getClassLoader().getResource("config.json").getFile()), HttpStatus.OK);
+                return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
             case "uploadimage":
                 response.setHeader("Content-Type", "application/json");
                 return uploadImage(file.getOriginalFilename(), file.getBytes());
+            case "uploadvideo":
+                log.info("uploadvideo!");
+                response.setHeader("Content-Type", "application/json");
+                return uploadVideo(file.getOriginalFilename(), file.getBytes());
         }
+
         request.setCharacterEncoding("utf-8");
         response.setHeader("Content-Type", "text/html");
-        return new ResponseEntity<>(IOTool.readFile2String(EditorController.class.getClassLoader().getResource("config.json").getFile()), HttpStatus.OK);
+
+        return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
     }
 
     @GetMapping(value = UrlConstant.pic + "/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody byte[] getFile(@PathVariable String fileName) throws IOException {
+    public @ResponseBody
+    byte[] getFile(@PathVariable String fileName) throws IOException {
         return fileMemoryService.getUploadPic(fileName);
     }
 
@@ -74,8 +87,21 @@ public class EditorController {
         baseState.putInfo("size", String.valueOf(bytes.length));
         baseState.putInfo("title", name);
         baseState.putInfo("original", name);
-        ResponseEntity<String> responseEntity = new ResponseEntity<>(baseState.toString(), WebTool.aa(), HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(baseState.toString(), WebTool.aa(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> uploadVideo(String name, byte[] bytes) {
+        fileMemoryService.saveUploadPic(name, bytes);
+
+        BaseState baseState = new BaseState();
+
+        Map<String, String> map = new HashMap<>();
+        baseState.putInfo("url", UrlConstant.pic + "/" + name);
+        baseState.putInfo("type", "mp4");
+        baseState.putInfo("size", String.valueOf(bytes.length));
+        baseState.putInfo("title", name);
+        baseState.putInfo("original", name);
+        return new ResponseEntity<>(baseState.toString(), WebTool.aa(), HttpStatus.OK);
     }
 
 }
