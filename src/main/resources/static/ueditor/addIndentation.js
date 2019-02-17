@@ -2,14 +2,18 @@
 UE.registerUI('indentation', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
     editor.registerCommand(uiName, {
-        execCommand: function (g, b) {
-            this.execCommand("paragraph", "p", {
-                style: "text-indent:" + (b + "em")
+        execCommand: function (cmdName, value) {
+            this.execCommand("Paragraph", "p", {
+                style: "text-indent:" + (value + "em")
             });
         },
         queryCommandValue: function () {
-            var g = k.filterNodeList(this.selection.getStartElementPath(), "p h1 h2 h3 h4 h5 h6");
-            return g && g.style.textIndent && parseInt(g.style.textIndent) ? 1 : 0
+            var startNode = this.selection.getStart();
+            value = UE.dom.domUtils.getComputedStyle(startNode, "text-indent");
+            if (value === "0px") {
+                return undefined;
+            }
+            return "缩进:" + value;
         }
     });
 
@@ -20,7 +24,7 @@ UE.registerUI('indentation', function (editor, uiName) {
         ci = fontItems[i];
         items.push({
             //显示的条目
-            label: '缩进:' + ci + 'px',
+            label: '缩进:' + ci + 'em',
             //选中条目后的返回值
             value: ci,
             renderLabelHtml: function () {

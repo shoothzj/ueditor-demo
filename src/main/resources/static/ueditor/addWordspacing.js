@@ -1,18 +1,18 @@
 UE.registerUI('wordspacing', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
-    editor.registerCommand(uiName, {
-        execCommand: function (g, b) {
-            this.execCommand("paragraph", "p", {
-                style: "letter-spacing:" + (b + "px")
+    editor.registerCommand("wordspacing", {
+        execCommand: function (cmdName, value) {
+            this.execCommand("Paragraph", "p", {
+                style: "letter-spacing:" + (value + "px")
             });
         },
         queryCommandValue: function () {
-            var g = k.filterNodeList(this.selection.getStartElementPath(), function (b) {
-                return k.isBlockElm(b)
-            });
-            if (g) {
-                return g = k.getComputedStyle(g, "letter-spacing"), "normal" === g ? "\u5b57\u8ddd" : g.replace(/[^\d.]*/ig, "");
+            var startNode = this.selection.getStart();
+            value = UE.dom.domUtils.getComputedStyle(startNode, "letter-spacing");
+            if (value === "normal") {
+                return undefined;
             }
+            return "字距:" + value + "px";
         }
     });
 
