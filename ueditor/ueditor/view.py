@@ -5,8 +5,8 @@
 # @File    : view.py
 # @Software: PyCharm
 
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 
 
 def index(request):
-    return render(request, 'index.html', context={})
+    return render_to_response('index.html')
