@@ -132,7 +132,7 @@
                 // "preview",
                 "searchreplace",
                 "indentation",
-                "wordSpacing",
+                "wordspacing",
                 // "drafts",
                 // "help"
             ]
