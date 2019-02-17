@@ -1,10 +1,17 @@
-//字间距
 UE.registerUI('wordspacing', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
     editor.registerCommand(uiName, {
-        execCommand: function () {
-            if (uiName === "wordspacing") {
-                alert('execCommand:' + uiName)
+        execCommand: function (g, b) {
+            this.execCommand("paragraph", "p", {
+                style: "letter-spacing:" + (b + "px")
+            });
+        },
+        queryCommandValue: function () {
+            var g = k.filterNodeList(this.selection.getStartElementPath(), function (b) {
+                return k.isBlockElm(b)
+            });
+            if (g) {
+                return g = k.getComputedStyle(g, "letter-spacing"), "normal" === g ? "\u5b57\u8ddd" : g.replace(/[^\d.]*/ig, "");
             }
         }
     });
@@ -51,7 +58,7 @@ UE.registerUI('wordspacing', function (editor, uiName) {
                 combox.setDisabled(false);
                 var value = editor.queryCommandValue(uiName);
                 if (!value) {
-                    combox.setValue(uiName);
+                    combox.setValue("字距");
                     return;
                 }
                 //ie下从源码模式切换回来时，字体会带单引号，而且会有逗号
