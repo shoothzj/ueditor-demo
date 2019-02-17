@@ -23,6 +23,9 @@ html,body {
     padding: 1% 0;
     vertical-align: top;
 }
+.has-error .help-block {
+    color: red;
+}
 
 #toolbar {
     position: absolute;
