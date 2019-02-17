@@ -12,7 +12,7 @@ UE.registerUI('wordspacing', function (editor, uiName) {
             if (value === "normal") {
                 return undefined;
             }
-            return "字距:" + value + "px";
+            return "字距:" + value;
         }
     });
 

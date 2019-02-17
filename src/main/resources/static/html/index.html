@@ -37,26 +37,31 @@
     <textarea id="editor"></textarea>
 
     <div id="toolbar_area">
-        <div id="toolbar">
-            <button class="editor_button" id="preview_button" title="在预览区预览" data-toggle="modal" onclick="preview()">
+        <div class="btn-group-vertical" id="toolbar-vertical-group">
+            <button type="button" class="btn btn-outline-primary" id="preview_button" title="在预览区预览" data-toggle="modal" onclick="preview()">
                 <i class="fa fa-play-circle"></i>
                 预览
             </button>
-            <button class="editor_button" id="collection_button" title="采集其他公众号已发布的文章到编辑区" data-toggle="modal"
+            <button type="button" class="btn btn-outline-primary" id="collection_button" title="采集其他公众号已发布的文章到编辑区" data-toggle="modal"
                     data-target="#collectDialog">
                 <i class="fa fa-search-plus"></i>
                 采集
             </button>
-            <button class="editor_button" id="copy_button" title="拷贝到粘贴板" data-toggle="modal" onclick="copy()">
+            <button type="button" class="btn btn-outline-primary" id="copy_button" title="拷贝到粘贴板" data-toggle="modal" onclick="copy()">
                 <i class="fa fa-copy"></i>
                 复制
             </button>
-            <button class="editor_button" id="release_button" title="发布到微信公众号" onclick="release()">
+            <button type="button" class="btn btn-outline-primary" id="release_button" title="发布到微信公众号" onclick="release()">
                 <i class="fas fa-check-square"></i>
                 发布
             </button>
         </div>
     </div>
+
+    <div id="preview_area">
+        <!--<div class="modal-main" id="preview_area">-->
+    </div>
+
 
     <!-- Collect 对话框 -->
     <div class="modal fade" id="collectDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -82,8 +87,6 @@
             </div>
         </div>
     </div>
-
-    <div id="preview_area"></div>
 </div>
 <script type="application/javascript">
     var ue = UE.getEditor('editor');

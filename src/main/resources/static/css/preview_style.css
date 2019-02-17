@@ -27,7 +27,7 @@ html,body {
     color: red;
 }
 
-#toolbar {
+#toolbar-vertical-group {
     position: absolute;
     width: 110px;
     top: 50%;
@@ -35,12 +35,6 @@ html,body {
     margin-right: 0;
     -webkit-transform: translate(11px, -50%);
     transform: translate(11px, -50%);
-}
-
-.editor_button {
-    display: block;
-    width: 100%;
-    /*padding: 6px 18px 6px 12px;*/
 }
 
 #preview_area {
@@ -52,3 +46,12 @@ html,body {
     overflow: scroll;
     word-wrap: break-word;
 }
+
+/*#preview_area {*/
+    /*padding: 0 5px;*/
+    /*width: 285px;*/
+    /*background: #fff;*/
+    /*height: 502px;*/
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+/*}*/
