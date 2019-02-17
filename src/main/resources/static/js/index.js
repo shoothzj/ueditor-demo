@@ -1,4 +1,6 @@
 function preview() {
+    localStorage.setItem(key, UE.getEditor('editor').getContent());
+
     $("#preview_area").html(UE.getEditor('editor').getContent());
 }
 

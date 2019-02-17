@@ -94,13 +94,17 @@
         ue.adaptiveHeight();
     };
     UE.getEditor('editor').addListener('ready', function (editor) {
-        if (getCookie("editor") !== undefined) {
-            UE.getEditor('editor').setContent(getCookie("editor"))
+        var content = localStorage.getItem(key);
+        if (content) {
+            ue.setContent(content)
         }
-        //开启定时任务,每3秒保存客户正在编辑的数据
-        setInterval(saveEditorContentToCookie, 3000);
         setInterval(preview, 700);
     });
+    var key = 'default_md_key';
+    ue.on("load", function () {
+
+    });
+
     // $input.parents('.form-group').addClass('has-error');
     $(document).ready(function () {
         $('#collect_form').bootstrapValidator({
