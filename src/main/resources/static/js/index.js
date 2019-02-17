@@ -4,7 +4,7 @@ function preview() {
 function collect(srcUrl) {
 }
 function copy() {
-
+    copyStringToClipboard(UE.getEditor('editor').getContent())
 }
 function release(content) {
 }

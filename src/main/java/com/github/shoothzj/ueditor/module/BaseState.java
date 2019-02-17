@@ -1,10 +1,7 @@
 package com.github.shoothzj.ueditor.module;
 
-import com.baidu.ueditor.Encoder;
-import com.baidu.ueditor.define.AppInfo;
-import com.baidu.ueditor.define.State;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.shoothzj.javatool.util.Encoder;
+import com.github.shoothzj.ueditor.AppInfo;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,20 +15,6 @@ public class BaseState {
 
     public BaseState() {
         this.state = true;
-    }
-
-    public BaseState(boolean state) {
-        this.setState(state);
-    }
-
-    public BaseState(boolean state, String info) {
-        this.setState(state);
-        this.info = info;
-    }
-
-    public BaseState(boolean state, int infoCode) {
-        this.setState(state);
-        this.info = AppInfo.getStateInfo(infoCode);
     }
 
     public boolean isSuccess() {

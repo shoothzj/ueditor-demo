@@ -35,7 +35,7 @@
         toolbars: [
             [
                 // "fullscreen",
-                // "source",
+                "source",
                 "|",
                 "undo",
                 "redo",
@@ -131,6 +131,8 @@
                 // "print",
                 // "preview",
                 "searchreplace",
+                "indentation",
+                "wordSpacing",
                 // "drafts",
                 // "help"
             ]
@@ -266,6 +268,7 @@
         //    'circle' : '',  // '○ 小圆圈'
         //    'disc' : '',    // '● 小圆点'
         //    'square' : ''   //'■ 小方块'
+        //}
         //}
         //,listDefaultPaddingLeft : '30'//默认的左边缩进的基数倍
         //,listiconpath : 'http://bs.baidu.com/listicon/'//自定义标号的路径

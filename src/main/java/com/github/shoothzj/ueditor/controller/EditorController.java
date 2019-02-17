@@ -1,6 +1,6 @@
 package com.github.shoothzj.ueditor.controller;
 
-import com.github.shoothzj.javatool.tool.IOTool;
+import com.github.shoothzj.javatool.util.IOUtil;
 import com.github.shoothzj.ueditor.FileUploadUtil;
 import com.github.shoothzj.ueditor.WebTool;
 import com.github.shoothzj.ueditor.constant.UrlConstant;
@@ -43,19 +43,17 @@ public class EditorController {
 
     @RequestMapping(value = "/editor")
     public ResponseEntity<String> editor(@RequestParam(required = false) String action, @RequestParam(required = false) String callback, @RequestParam(value = "upfile", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("callback is {}", callback);
-
         if (action == null) {
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
-            return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
+            return new ResponseEntity<>(IOUtil.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
         }
 
         request.setCharacterEncoding("utf-8");
         switch (action) {
             case "config":
                 response.setHeader("Content-Type", "text/html");
-                return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
+                return new ResponseEntity<>(IOUtil.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
             case "uploadimage":
                 response.setHeader("Content-Type", "application/json");
                 return uploadImage(file.getOriginalFilename(), file.getBytes());
@@ -68,7 +66,7 @@ public class EditorController {
         request.setCharacterEncoding("utf-8");
         response.setHeader("Content-Type", "text/html");
 
-        return new ResponseEntity<>(IOTool.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
+        return new ResponseEntity<>(IOUtil.readFile2String(Objects.requireNonNull(EditorController.class.getClassLoader().getResource("config.json")).getFile()), HttpStatus.OK);
     }
 
     @GetMapping(value = UrlConstant.pic + "/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
