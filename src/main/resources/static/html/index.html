@@ -32,9 +32,17 @@
 </head>
 <body>
 
-<div id="container">
+<div id="container" class="container">
 
-    <textarea id="editor"></textarea>
+    <div id="left-container" class="container">
+        <form id="article_form" role="form">
+            <div class="form-group">
+                <!--<label class="control-label">文章标题</label>-->
+                <input type="text" placeholder="文章标题(必填)" class="form-control" id="article_title" name="article_title"/>
+            </div>
+        </form>
+        <textarea id="editor"></textarea>
+    </div>
 
     <div id="toolbar_area">
         <div class="btn-group-vertical" id="toolbar-vertical-group">
@@ -58,8 +66,8 @@
         </div>
     </div>
 
-    <div id="preview_area">
-        <!--<div class="modal-main" id="preview_area">-->
+    <div id="preview_container" class="container">
+        <div class="modal-main" id="preview_area">
     </div>
 
 
@@ -130,6 +138,29 @@
                 }
             }
         });
+
+        $('#article_form').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                article_title: {
+                    validators: {
+                        notEmpty: {
+                            message: '文章标题不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 64,
+                            message: "文章标题在1到64位"
+                        }
+                    }
+                }
+            }
+        });
+
         $('#collectDialog').on('shown.bs.modal', function () {
             $('#collect_input_url').focus();
         })

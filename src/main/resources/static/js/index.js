@@ -33,7 +33,13 @@ function copy() {
 }
 
 function release(content) {
+    articleTitle = document.getElementById("article_title").value;
+    if (articleTitle === undefined || articleTitle === "" || articleTitle.length > 64) {
+        alert("文章名不合法");
+        return
+    }
     var releaseRequest = {};
+    releaseRequest.articleTitle = article_title;
     releaseRequest.content = UE.getEditor('editor').getContent();
     $.ajax({
         url: '/editor/release',

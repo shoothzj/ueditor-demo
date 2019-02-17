@@ -7,11 +7,9 @@ public class ReleaseRequest {
 
     String content;
 
-    public ReleaseRequest() {
-    }
+    String articleTitle;
 
-    public ReleaseRequest(String content) {
-        this.content = content;
+    public ReleaseRequest() {
     }
 
     public String getContent() {
@@ -22,10 +20,11 @@ public class ReleaseRequest {
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "ReleaseRequest{" +
-                "content='" + content + '\'' +
-                '}';
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 }
