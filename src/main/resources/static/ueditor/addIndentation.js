@@ -2,13 +2,18 @@
 UE.registerUI('indentation', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
     editor.registerCommand(uiName, {
-        execCommand: function () {
-            alert('execCommand:' + uiName)
+        execCommand: function (g, b) {
+            this.execCommand("paragraph", "p", {
+                style: "text-indent:" + (b + "em")
+            });
+        },
+        queryCommandValue: function () {
+            var g = k.filterNodeList(this.selection.getStartElementPath(), "p h1 h2 h3 h4 h5 h6");
+            return g && g.style.textIndent && parseInt(g.style.textIndent) ? 1 : 0
         }
     });
 
 
-    //调整缩进值
     var items = [];
     fontItems = [0, 1, 2, 3, 5, 7, 10, 13, 15, 17, 20];
     for (var i = 0; i < fontItems.length; i++) {
@@ -32,7 +37,7 @@ UE.registerUI('indentation', function (editor, uiName) {
         //当选中时要做的事情
         onselect: function (t, index) {
             //拿到选中条目的值
-            editor.execCommand(uiName, this.items[index].value);
+            editor.execCommand("indentation", this.items[index].value);
         },
         //提示
         title: "调整缩进长度",
@@ -49,7 +54,7 @@ UE.registerUI('indentation', function (editor, uiName) {
                 combox.setDisabled(false);
                 var value = editor.queryCommandValue(uiName);
                 if (!value) {
-                    combox.setValue(uiName);
+                    combox.setValue("缩进");
                     return;
                 }
                 //ie下从源码模式切换回来时，字体会带单引号，而且会有逗号
