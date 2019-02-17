@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ueditor-demo.iml" filepath="$PROJECT_DIR$/.idea/ueditor-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ueditordemo.iml" filepath="$PROJECT_DIR$/.idea/ueditordemo.iml" />
     </modules>
   </component>
 </project>
