@@ -20,6 +20,6 @@ from .view import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^editor', include('ueditor_ue.urls')),
+    url(r'^ueditor', include('ueditor_ue.urls')),
     url(r'^$', index),
 ]

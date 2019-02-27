@@ -12,6 +12,7 @@ import random
 import re
 from datetime import *
 
+import oss2
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -140,12 +141,17 @@ def uploadFile(request, config):
             f.flush()
             f.close()
 
+            auth = oss2.Auth('LTAIgiraCqap7aFm', 'yoKqVAFdVcUA5M8qXeUa2gZIARVarw')
+            bucket = oss2.Bucket(auth, 'oss-cn-shenzhen.aliyuncs.com', 'zicco')
+            bucket.put_object_from_file(filename, savePath)
+
             result.state = "SUCCESS"
             result.url = truelyName
             result.title = truelyName
             result.original = truelyName
             response = HttpResponse(buildJsonResult(result))
             response["Content-Type"] = "text/plain"
+
             return response
         except Exception as e:
             result.error = u"网络错误"
